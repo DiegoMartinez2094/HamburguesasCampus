@@ -21,6 +21,27 @@ usuario.get("/usuario",limitGrt(),validarToken, async (req, res) => {
     }
 });
 
+usuario2.get("/usuario/rol/:rol", limitGrt(), validarToken,
+    async (req, res) => {
+      if (!req.rateLimit) return;
+      console.log(req.rateLimit);
+      const rol = req.params.rol;
+      try {
+        const db = await con();
+        const usuarios = db.collection("usuario");
+        const matchingusuarios = await usuarios.find({ rol }).toArray();
+        if (matchingusuarios.length > 0) {
+          res.send(matchingusuarios);
+        } else {
+          res.status(404).send("usuarios no encontrados con el rol especificado");
+        }
+      } catch (error) {
+        console.error("Error al obtener los usuarios:", error);
+        res.status(500).send("Error interno del servidor");
+      }
+    }
+  );
+
 usuario.post("/usuario", limitGrt(), validarToken, async (req, res) => {
     if (!req.rateLimit) return;
     console.log(req.rateLimit);

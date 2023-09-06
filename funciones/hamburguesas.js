@@ -47,3 +47,15 @@ export async function hamburguesaVegetariana() {
       throw error; 
     }
   }
+
+  export async function hamburguesaPrecioMayorIgual9() {
+    try {
+      const db = await con();
+      const ingredients = db.collection("hamburguesa");
+      const result = await ingredients.find({ "precio_hamburguesa":{ $lte:9}}).toArray();
+      return result;
+    } catch (error) {
+      console.error("Error al obtener las hamburguesa:", error);
+      throw error; 
+    }
+  }

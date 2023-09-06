@@ -35,3 +35,15 @@ export async function hamburguesaVegetariana() {
       throw error; 
     }
   }
+
+  export async function hamburguesaCategoria() {
+    try {
+      const db = await con();
+      const ingredients = db.collection("hamburguesa");
+      const result = await ingredients.distinct("categoria");
+      return result;
+    } catch (error) {
+      console.error("Error al obtener las hamburguesa:", error);
+      throw error; 
+    }
+  }

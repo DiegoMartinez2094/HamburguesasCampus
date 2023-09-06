@@ -4,6 +4,7 @@ import { limitGrt } from "../../limit/config.js";
 import {hamburguesaVegetariana} from "../../funciones/hamburguesas.js"
 import { hamburguesaXchefB } from "../../funciones/hamburguesas.js";
 import { hamburguesaPanIntegral } from "../../funciones/hamburguesas.js";
+import { hamburguesaCategoria } from "../../funciones/hamburguesas.js";
 
 const hamburguesa = Router();
 
@@ -34,6 +35,17 @@ hamburguesa.get("/hamburguesaVegetariana", limitGrt(), async (req, res) => {
     console.log(req.rateLimit);
     try {
       const hambur = await hamburguesaPanIntegral();
+      res.send(hambur);
+    } catch (error) {
+      res.status(500).send("Error interno del servidor");
+    }
+  });
+
+  hamburguesa.get("/hamburguesaCategorias", limitGrt(), async (req, res) => {
+    if (!req.rateLimit) return;
+    console.log(req.rateLimit);
+    try {
+      const hambur = await hamburguesaCategoria();
       res.send(hambur);
     } catch (error) {
       res.status(500).send("Error interno del servidor");

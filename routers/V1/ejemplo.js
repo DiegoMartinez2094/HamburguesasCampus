@@ -1,67 +1,42 @@
 
-import { con } from "../../db/atlas";
 import { Router } from "express";
-import { limitGrt } from "../../limit/config";
-import { validarToken } from '../../middlewares/JWT';
+import { limitGrt } from "../../limit/config.js";
+import {obtenerMedicamentosConMenosDe50Unidades} from "../../funciones/obtenermedicamentosmenos50unds.js"
 
 
-const usuario = Router();
+const medicamento = Router();
 
-usuario.get("/usuario",limitGrt(),validarToken, async (req, res) => {
-    if(!req.rateLimit) return; 
+medicamento.get("/medicamento/50", limitGrt(), async (req, res) => {
+    if (!req.rateLimit) return;
     console.log(req.rateLimit);
     try {
-        const db = await con();
-        const usuarios = db.collection("usuario");
-        const result = await usuarios.find({}).toArray();
-        res.send(result);
+      const medicamentos = await obtenerMedicamentosConMenosDe50Unidades();
+      res.send(medicamentos);
     } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-        res.status(500).send("Error interno del servidor");
+      res.status(500).send("Error interno del servidor");
     }
-});
+  });
 
-usuario2.get("/usuario/rol/:rol", limitGrt(), validarToken,
-    async (req, res) => {
-      if (!req.rateLimit) return;
-      console.log(req.rateLimit);
-      const rol = req.params.rol;
-      try {
-        const db = await con();
-        const usuarios = db.collection("usuario");
-        const matchingusuarios = await usuarios.find({ rol }).toArray();
-        if (matchingusuarios.length > 0) {
-          res.send(matchingusuarios);
-        } else {
-          res.status(404).send("usuarios no encontrados con el rol especificado");
-        }
-      } catch (error) {
-        console.error("Error al obtener los usuarios:", error);
-        res.status(500).send("Error interno del servidor");
-      }
-    }
-  );
-
-usuario.post("/usuario", limitGrt(), validarToken, async (req, res) => {
+  medicamento.post("/medicamento", limitGrt(),  async (req, res) => {
     if (!req.rateLimit) return;
     console.log(req.rateLimit);
 
     try {
         const db = await con();
-        const usuarios = db.collection("usuario");
+        const medicamentos = db.collection("medicamento");
 
-        // Aquí debes obtener los datos del nuevo usuario desde req.body
-        const nuevoUsuario = req.body;
+        // Aquí debes obtener los datos del nuevo medicamento desde req.body
+        const nuevomedicamento = req.body;
 
-        const result = await usuarios.insertOne(nuevoUsuario);
-        res.status(201).send("Usuario creado correctamente");
+        const result = await medicamentos.insertOne(nuevomedicamento);
+        res.status(201).send("medicamento creado correctamente");
     } catch (error) {
-        console.error("Error al crear el usuario:", error);
+        console.error("Error al crear el medicamento:", error);
         res.status(500).send("Error interno del servidor");
     }
 });
 
-usuario.put("/usuario/:id", limitGrt(), validarToken, async (req, res) => {
+medicamento.put("/usuario/:id", limitGrt(),  async (req, res) => {
     if (!req.rateLimit) return;
     console.log(req.rateLimit);
 
@@ -86,7 +61,7 @@ usuario.put("/usuario/:id", limitGrt(), validarToken, async (req, res) => {
     }
 });
 
-usuario.delete("/usuario/:id", limitGrt(), validarToken, async (req, res) => {
+medicamento.delete("/usuario/:id", limitGrt(),  async (req, res) => {
     if (!req.rateLimit) return;
     console.log(req.rateLimit);
 
@@ -110,4 +85,4 @@ usuario.delete("/usuario/:id", limitGrt(), validarToken, async (req, res) => {
     }
 });
 
-export default usuario;
+export default medicamento;

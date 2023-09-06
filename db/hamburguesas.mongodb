@@ -1,0 +1,155 @@
+use("filtroHamburguesa_DiegoMartinez")
+
+db.createCollection("hamburguesa")
+db.createCollection("chef")
+db.createCollection("ingrediente")
+
+db.hamburguesa.insertMany([{
+    id_hamburguesa:1,
+    categoria: "vegetariana",
+    preparadaPor: "chefA",
+    ingrediente:["pan integral", "tomate", "queso cheddar", "lechuga"],
+    precio_hamburguesa: 4
+},
+{
+    id_hamburguesa:2,
+    categoria: "clasica",
+    preparadaPor: "chefB",
+    ingrediente:["pan", "queso cheddar", "tomate", "carne", "lechuga"],
+    precio_hamburguesa: 5
+},
+{
+    id_hamburguesa:2,
+    categoria: "gourmet",
+    preparadaPor: "chefC",
+    ingrediente:["pan", "queso cheddar","tomate", "lechuga", "pollo", "pepinillo" ],
+    precio_hamburguesa: 10
+}
+])
+
+db.ingrediente.insertMany([{
+    id_ingrediente:1,
+    nombre_ingrediente:"pan integral",
+    stock_ingrediente: 200,
+    precio_ingrediente: 2,
+    descripcion:"Delicioso pan ingtegral bajo en grasa"
+},
+{
+    id_ingrediente:2,
+    nombre_ingrediente:"queso cheddar",
+    stock_ingrediente: 500,
+    precio_ingrediente: 3,
+    descripcion:"esquisito queso clasico"
+},
+{
+    id_ingrediente:3,
+    nombre_ingrediente:"pan",
+    stock_ingrediente: 300,
+    precio_ingrediente: 1,
+    descripcion:"esquisito queso clasico"
+},
+{
+    id_ingrediente:4,
+    nombre_ingrediente:"tomate",
+    stock_ingrediente: 100,
+    precio_ingrediente: 1,
+    descripcion:"tomate rojo"
+},
+{
+    id_ingrediente:5,
+    nombre_ingrediente:"lechuga",
+    stock_ingrediente: 150,
+    precio_ingrediente: 1,
+    descripcion:"lechuga crespa"
+},
+{
+    id_ingrediente:6,
+    nombre_ingrediente:"carne",
+    stock_ingrediente: 1000,
+    precio_ingrediente: 4,
+    descripcion:"jugosa carne de res"
+},
+{
+    id_ingrediente:7,
+    nombre_ingrediente:"pollo",
+    stock_ingrediente: 0,
+    precio_ingrediente: 4,
+    descripcion:"rico pollo"
+},{
+    id_ingrediente:8,
+    nombre_ingrediente:"pepinillo",
+    stock_ingrediente: 300,
+    precio_ingrediente: 4,
+    descripcion:"pepinillo picante"
+}])
+
+db.chef.insertMany([{
+    id_chef:1,
+    nombre_chef: "chefB",
+     especialidad_chef:"carnes"
+},
+{
+    id_chef:2,
+    nombre_chef: "chefA",
+     especialidad_chef:"vegetales"
+},
+{
+    id_chef:1,
+    nombre_chef: "chefC",
+     especialidad_chef:"pollo"
+},
+{
+    id_chef:1,
+    nombre_chef: "chefD",
+     especialidad_chef:"carnes"
+}])
+
+
+//CONSULTAS//
+
+use("filtroHamburguesa_DiegoMartinez")
+db.ingrediente.find({ "stock_ingrediente":{ $lt: 400 } })
+
+use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.find({ "categoria":{ $eq:"vegetariana"}})
+
+use("filtroHamburguesa_DiegoMartinez")
+db.chef.find({"especialidad_chef":{ $eq:"carnes"}})
+
+
+use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.find({"preparadaPor":{ $eq: "chefB"} })
+
+
+use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.aggregate([
+    { $match: { categoria: "clasica" } },
+    { $addFields: { ingrediente: { $concatArrays: [ "$ingrediente", [ "chorizo" ] ] } } }
+ ])
+
+
+use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.find({ "ingrediente":{ $eq:"pan integral"}})
+
+
+use("filtroHamburguesa_DiegoMartinez")
+try {
+    db.chef.replaceOne(
+       { "especialidad_chef" : "pollo" },
+       {  "id_chef":1,"nombre_chef": "chefC","especialidad_chef" : "Cocina Internacional"
+         }
+    );
+ } catch (e){
+    print(e);
+ }
+
+ use("filtroHamburguesa_DiegoMartinez")
+ db.ingrediente.find({"precio_ingrediente":{ $gt}})
+
+
+ use("filtroHamburguesa_DiegoMartinez")
+ db.hamburguesa.distinct("categoria")
+
+
+
+

@@ -29,7 +29,16 @@ hamburguesa.get("/hamburguesaVegetariana", limitGrt(), async (req, res) => {
     }
   });
 
-  
+  hamburguesa.get("/hamburguesaPanIntegral", limitGrt(), async (req, res) => {
+    if (!req.rateLimit) return;
+    console.log(req.rateLimit);
+    try {
+      const hambur = await hamburguesaPanIntegral();
+      res.send(hambur);
+    } catch (error) {
+      res.status(500).send("Error interno del servidor");
+    }
+  });
 
 export default hamburguesa;
 

@@ -24,3 +24,14 @@ export async function hamburguesaVegetariana() {
     }
   }
 
+  export async function hamburguesaPanIntegral() {
+    try {
+      const db = await con();
+      const ingredients = db.collection("hamburguesa");
+      const result = await ingredients.find({ "ingrediente":{ $eq:"pan integral"}}).toArray();
+      return result;
+    } catch (error) {
+      console.error("Error al obtener las hamburguesa:", error);
+      throw error; 
+    }
+  }

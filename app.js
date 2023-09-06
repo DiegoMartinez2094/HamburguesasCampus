@@ -5,6 +5,8 @@ import { check } from "express-validator";
 import ingredienteStock from "./routers/V1/ingrediente.js";
 import  hamburguesaVegetariana  from "./routers/V1/hamburguesa.js";
 import  chefsCarne  from "./routers/V1/chef.js";
+import  hamburguesaXchefB  from "./routers/V1/hamburguesa.js";
+import  hamburguesaPanIntegral  from "./routers/V1/hamburguesa.js";
 
 dotenv.config();
 const app = express();
@@ -25,10 +27,9 @@ app.use("/ingrediente",
 );
 
 
-
 app.use("/chef",
 versionRoute({
-  "1.0.0": chefsCarne,
+  "1.0.0": chefsCarne,hamburguesaXchefB,hamburguesaPanIntegral,
 }));
 
 

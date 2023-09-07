@@ -12,6 +12,8 @@ import  hamburguesaCategoria  from  "./routers/V1/hamburguesa.js";
 import  hamburguesaPrecioMayorIgual9  from "./routers/V1/hamburguesa.js";
 import  hamburguesa7ingredientes  from "./routers/V1/hamburguesa.js";
 import  hamburguesaTomateOLechuga  from "./routers/V1/hamburguesa.js";
+import  chefEliminarCocinaVegetariana  from  "./routers/V1/chef.js";
+
 dotenv.config();
 const app = express();
 const versionRoute = versionRoutes();
@@ -21,7 +23,8 @@ const config = JSON.parse(process.env.MY_SERVER);
 
 app.use("/hamburguesa",
 versionRoute({
-  "1.0.0": hamburguesaVegetariana,
+  "1.0.0": hamburguesaVegetariana,hamburguesaXchefB,hamburguesaPanIntegral,hamburguesaCategoria, hamburguesaPrecioMayorIgual9, hamburguesa7ingredientes,
+  hamburguesaTomateOLechuga
 }));
 
 app.use("/ingrediente", 
@@ -33,8 +36,7 @@ app.use("/ingrediente",
 
 app.use("/chef",
 versionRoute({
-  "1.0.0": chefsCarne,hamburguesaXchefB,hamburguesaPanIntegral,hamburguesaCategoria, hamburguesaPrecioMayorIgual9, hamburguesa7ingredientes,
-  hamburguesaTomateOLechuga
+  "1.0.0": chefsCarne,chefEliminarCocinaVegetariana,
 }));
 
 

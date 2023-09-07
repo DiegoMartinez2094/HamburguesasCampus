@@ -38,6 +38,8 @@ Nos dará un mensaje similar a este: `Servidor iniciado en http://127.10.10.10:5
 
 # BASE DE DATOS:
 
+En el apartado del Schema de la base de datos, todos los campos son requeridos.
+
 ```
 use("filtroHamburguesa_DiegoMartinez")
 
@@ -499,3 +501,10 @@ esta es la respuesta del router: En este caso solo había 1**
 ```
 
 NOTA: las demas consultas estan en el archivo : db/query_db.mongodb
+
+---
+
+# INFORMACIÓN ADICIONAL:
+
+El programa cuenta con una limitador de solicitudes en un determinado tiempo que se podrá visualizar en la terminal: (solo se pueden realizar 5 consultas en 30 segundos)
+![1694050836636](image/README/1694050836636.png)

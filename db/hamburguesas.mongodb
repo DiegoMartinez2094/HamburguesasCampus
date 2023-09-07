@@ -1,9 +1,5 @@
 use("filtroHamburguesa_DiegoMartinez")
 
-db.createCollection("hamburguesa")
-db.createCollection("chef")
-db.createCollection("ingrediente")
-
 db.hamburguesa.insertMany([{
     id_hamburguesa:1,
     categoria: "vegetariana",
@@ -15,15 +11,22 @@ db.hamburguesa.insertMany([{
     id_hamburguesa:2,
     categoria: "clasica",
     preparadaPor: "chefB",
-    ingrediente:["pan", "queso cheddar", "tomate", "carne", "lechuga"],
+    ingrediente:["pan", "queso cheddar", "carne", "lechuga"],
     precio_hamburguesa: 5
 },
 {
-    id_hamburguesa:2,
+    id_hamburguesa:3,
     categoria: "gourmet",
     preparadaPor: "chefC",
-    ingrediente:["pan", "queso cheddar","tomate", "lechuga", "pollo", "pepinillo" ],
+    ingrediente:["pan", "queso cheddar","tomate", "lechuga", "pollo", "pepinillo","coriozo sanatarosano" ],
     precio_hamburguesa: 10
+},
+{
+  id_hamburguesa:4,
+  categoria: "especial",
+  preparadaPor: "chefB",
+  ingrediente:["pan", "queso cheddar","tomate", "pollo", "pepinillo","coriozo sanatarosano" ],
+  precio_hamburguesa: 9
 }
 ])
 
@@ -81,7 +84,15 @@ db.ingrediente.insertMany([{
     stock_ingrediente: 300,
     precio_ingrediente: 4,
     descripcion:"pepinillo picante"
-}])
+},
+{
+  id_ingrediente:8,
+  nombre_ingrediente:"chorizo",
+  stock_ingrediente: 300,
+  precio_ingrediente: 2,
+  descripcion:"chorizo santarosano"
+}
+])
 
 db.chef.insertMany([{
     id_chef:1,
@@ -103,6 +114,7 @@ db.chef.insertMany([{
     nombre_chef: "chefD",
      especialidad_chef:"carnes"
 }])
+
 
 
 //CONSULTAS//
@@ -151,5 +163,27 @@ try {
  db.hamburguesa.distinct("categoria")
 
 
+ use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.find({ "precio_hamburguesa":{ $lte:9}})
 
 
+use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.find( { ingrediente: { $size: 7 } } );
+
+
+use("filtroHamburguesa_DiegoMartinez")
+db.hamburguesa.find( { $or: [ { ingrediente: { $eq:"tomate"} }, { ingrediente: { $eq:"lechuga"} } ] } )
+
+use("filtroHamburguesa_DiegoMartinez")
+try {
+  db.chef.deleteOne( { "especialidad" :"Cocina Vegetariana" } );
+} catch (e) {
+  print(e);
+}
+
+use("filtroHamburguesa_DiegoMartinez")
+try {
+  db.ingrediente.deleteOne( { "stock_ingrediente" :0 } );
+} catch (e) {
+  print(e);
+}

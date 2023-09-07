@@ -10,6 +10,7 @@ import  hamburguesaXchefB  from "./routers/V1/hamburguesa.js";
 import  hamburguesaPanIntegral  from "./routers/V1/hamburguesa.js";
 import  hamburguesaCategoria  from  "./routers/V1/hamburguesa.js";
 import  hamburguesaPrecioMayorIgual9  from "./routers/V1/hamburguesa.js";
+import  hamburguesa7ingredientes  from "./routers/V1/hamburguesa.js";
 
 dotenv.config();
 const app = express();
@@ -32,7 +33,7 @@ app.use("/ingrediente",
 
 app.use("/chef",
 versionRoute({
-  "1.0.0": chefsCarne,hamburguesaXchefB,hamburguesaPanIntegral,hamburguesaCategoria, hamburguesaPrecioMayorIgual9
+  "1.0.0": chefsCarne,hamburguesaXchefB,hamburguesaPanIntegral,hamburguesaCategoria, hamburguesaPrecioMayorIgual9, hamburguesa7ingredientes
 }));
 
 

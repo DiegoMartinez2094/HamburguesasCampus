@@ -1,0 +1,83 @@
+use("filtroHamburguesa_DiegoMartinez")
+
+db.createCollection("hamburguesa",{
+  validator:{
+    $jsonSchema:{
+      bsonType:"object",
+      required:["id_hamburguesa", "categoria", "preparadaPor", "ingrediente", "precio_hamburguesa"],
+      properties:{
+        id_hamburguesa: {
+          bsonType: "int",
+          description: "id_hamburguesa debe ser un numero entero y es obligatorio"
+        },
+        categoria:{
+          bsonType: "string",
+          description: "categoria debe ser formato string y es obligatorio"
+        },
+        preparadaPor:{
+          bsonType: "string",
+          description: "preparadaPor debe ser formato string y es obligatorio"
+        },
+        ingrediente:{
+          bsonType: "array",
+          description: "ingrediente debe ser formato array y es obligatorio"
+        },
+        precio_hamburguesa:{
+          bsonType: "int",
+          description: "precio_hamburguesa debe ser un numero entero y es obligatorio"
+        }
+    }
+  }
+} })
+db.createCollection("chef",{
+    validator:{
+  $jsonSchema:{
+    bsonType:"object",
+    required:["id_chef", "nombre_chef", "especialidad_chef"],
+    properties:{
+      id_chef: {
+        bsonType: "int",
+        description: "id_chef debe ser un numero entero y es obligatorio"
+      },
+      nombre_chef:{
+        bsonType: "string",
+        description: "nombre_chef debe ser formato string y es obligatorio"
+      },
+      especialidad_chef:{
+        bsonType: "string",
+        description: "especialidad_chef debe ser formato string y es obligatorio"
+      }
+  }
+}
+}
+
+})
+db.createCollection("ingrediente",{
+  validator:{
+    $jsonSchema:{
+      bsonType:"object",
+      required:["id_ingrediente", "nombre_ingrediente", "stock_ingrediente", "precio_ingrediente", "descripcion"],
+      properties:{
+        id_ingrediente: {
+          bsonType: "int",
+          description: "id_ingrediente debe ser un numero entero y es obligatorio"
+        },
+        nombre_ingrediente:{
+          bsonType: "string",
+          description: "nombre_ingrediente debe ser formato string y es obligatorio"
+        },
+        stock_ingrediente:{
+          bsonType: "int",
+          description: "stock_ingrediente debe ser formato entero y es obligatorio"
+        },
+        precio_ingrediente:{
+          bsonType: "int",
+          description: "precio_ingrediente debe ser formato entero y es obligatorio"
+        },
+        descripcion:{
+          bsonType: "string",
+          description: "descripcion debe ser un numero entero y es obligatorio"
+        }
+    }
+  }
+} })

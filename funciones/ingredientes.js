@@ -12,4 +12,14 @@ export async function ingredientesStock() {
     }
   }
 
-  
+  export async function ingredientesEliminaStock0() {
+    try {
+      const db = await con();
+      const ingredients = db.collection("ingrediente");
+      const result = await ingredients.deleteOne( { "stock_ingrediente" :0 } );
+      return result;
+    } catch (error) {
+      console.error("Error al eliminar los ingrediente:", error);
+      throw error; 
+    }
+  }

@@ -13,6 +13,7 @@ import  hamburguesaPrecioMayorIgual9  from "./routers/V1/hamburguesa.js";
 import  hamburguesa7ingredientes  from "./routers/V1/hamburguesa.js";
 import  hamburguesaTomateOLechuga  from "./routers/V1/hamburguesa.js";
 import  chefEliminarCocinaVegetariana  from  "./routers/V1/chef.js";
+import  ingredientesEliminaStock0  from "./routers/V1/ingrediente.js";
 
 dotenv.config();
 const app = express();
@@ -29,7 +30,7 @@ versionRoute({
 
 app.use("/ingrediente", 
   versionRoute({
-    "1.0.0": ingredienteStock,
+    "1.0.0": ingredienteStock,ingredientesEliminaStock0
   })
 );
 

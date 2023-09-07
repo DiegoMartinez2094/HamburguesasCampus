@@ -71,3 +71,15 @@ export async function hamburguesaVegetariana() {
       throw error; 
     }
   }
+
+  export async function hamburguesaTomateOLechuga() {
+    try {
+      const db = await con();
+      const ingredients = db.collection("hamburguesa");
+      const result = await ingredients.find( { $or: [ { ingrediente: { $eq:"tomate"} }, { ingrediente: { $eq:"lechuga"} } ] } ).toArray();
+      return result;
+    } catch (error) {
+      console.error("Error al obtener las hamburguesa:", error);
+      throw error; 
+    }
+  }

@@ -7,6 +7,7 @@ import { hamburguesaPanIntegral } from "../../funciones/hamburguesas.js";
 import { hamburguesaCategoria } from "../../funciones/hamburguesas.js";
 import { hamburguesaPrecioMayorIgual9 } from "../../funciones/hamburguesas.js";
 import { hamburguesa7ingredientes } from "../../funciones/hamburguesas.js";
+import { hamburguesaTomateOLechuga } from "../../funciones/hamburguesas.js";
 
 const hamburguesa = Router();
 
@@ -55,7 +56,7 @@ hamburguesa.get("/hamburguesaVegetariana", limitGrt(), async (req, res) => {
   });
 
 
-  hamburguesa.get("/hamburguesaPrecioMayorIgual9", limitGrt(), async (req, res) => {
+  hamburguesa.get("/hamburguesaPrecioMenorIgual9", limitGrt(), async (req, res) => {
     if (!req.rateLimit) return;
     console.log(req.rateLimit);
     try {
@@ -71,6 +72,17 @@ hamburguesa.get("/hamburguesaVegetariana", limitGrt(), async (req, res) => {
     console.log(req.rateLimit);
     try {
       const hambur = await hamburguesa7ingredientes();
+      res.send(hambur);
+    } catch (error) {
+      res.status(500).send("Error interno del servidor");
+    }
+  });
+
+  hamburguesa.get("/hamburguesaTomateOLechuga", limitGrt(), async (req, res) => {
+    if (!req.rateLimit) return;
+    console.log(req.rateLimit);
+    try {
+      const hambur = await hamburguesaTomateOLechuga();
       res.send(hambur);
     } catch (error) {
       res.status(500).send("Error interno del servidor");

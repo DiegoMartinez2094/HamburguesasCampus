@@ -1,11 +1,13 @@
+# SOBRE LA APP:
 
+Esta es una applicación para la gestión de una cafeteria especializada en hamburguesas, podrás realizar multiples consultas para diferente tipo de informacion, la App está basada en una base de datos Mongo y se utilizo noje.js v18.16.1, además de eso utilizamos algunas librerías las cuales las podrás ver en el archivo package.json.
 
 # **Pasos para Configurar y Usar la Aplicación:**
 
-***1. Clonar el Repositorio:*** Clona este repositorio en tu máquina local usando el comando:
+***1. Clonar el Repositorio:*** Clona este repositorio en tu máquina local usando el link:
 
 ```
-git clone https://github.com/DiegoMartinez2094/rappi_campus.git
+ https://github.com/DiegoMartinez2094/HamburguesasCampus.git
 ```
 
 ***2. Instalar Dependencias:*** Asegúrate de tener Node.js instalado. Luego, desde la raíz del proyecto, ejecuta el siguiente comando para instalar las dependencias:
@@ -34,16 +36,466 @@ npm run dev
 
 Nos dará un mensaje similar a este: `Servidor iniciado en http://127.10.10.10:5011` que nos indica la direccion url donde está corriendo el servidor.
 
+# BASE DE DATOS:
+
+```
+use("filtroHamburguesa_DiegoMartinez")
+
+db.hamburguesa.insertMany([{
+    id_hamburguesa:1,
+    categoria: "vegetariana",
+    preparadaPor: "chefA",
+    ingrediente:["pan integral", "tomate", "queso cheddar", "lechuga"],
+    precio_hamburguesa: 4
+},
+{
+    id_hamburguesa:2,
+    categoria: "clasica",
+    preparadaPor: "chefB",
+    ingrediente:["pan", "queso cheddar", "carne", "lechuga"],
+    precio_hamburguesa: 5
+},
+{
+    id_hamburguesa:3,
+    categoria: "gourmet",
+    preparadaPor: "chefC",
+    ingrediente:["pan", "queso cheddar","tomate", "lechuga", "pollo", "pepinillo","coriozo sanatarosano" ],
+    precio_hamburguesa: 10
+},
+{
+  id_hamburguesa:4,
+  categoria: "especial",
+  preparadaPor: "chefB",
+  ingrediente:["pan", "queso cheddar","tomate", "pollo", "pepinillo","coriozo sanatarosano" ],
+  precio_hamburguesa: 9
+}
+])
+
+db.ingrediente.insertMany([{
+    id_ingrediente:1,
+    nombre_ingrediente:"pan integral",
+    stock_ingrediente: 200,
+    precio_ingrediente: 2,
+    descripcion:"Delicioso pan ingtegral bajo en grasa"
+},
+{
+    id_ingrediente:2,
+    nombre_ingrediente:"queso cheddar",
+    stock_ingrediente: 500,
+    precio_ingrediente: 3,
+    descripcion:"esquisito queso clasico"
+},
+{
+    id_ingrediente:3,
+    nombre_ingrediente:"pan",
+    stock_ingrediente: 300,
+    precio_ingrediente: 1,
+    descripcion:"esquisito queso clasico"
+},
+{
+    id_ingrediente:4,
+    nombre_ingrediente:"tomate",
+    stock_ingrediente: 100,
+    precio_ingrediente: 1,
+    descripcion:"tomate rojo"
+},
+{
+    id_ingrediente:5,
+    nombre_ingrediente:"lechuga",
+    stock_ingrediente: 150,
+    precio_ingrediente: 1,
+    descripcion:"lechuga crespa"
+},
+{
+    id_ingrediente:6,
+    nombre_ingrediente:"carne",
+    stock_ingrediente: 1000,
+    precio_ingrediente: 4,
+    descripcion:"jugosa carne de res"
+},
+{
+    id_ingrediente:7,
+    nombre_ingrediente:"pollo",
+    stock_ingrediente: 0,
+    precio_ingrediente: 4,
+    descripcion:"rico pollo"
+},{
+    id_ingrediente:8,
+    nombre_ingrediente:"pepinillo",
+    stock_ingrediente: 300,
+    precio_ingrediente: 4,
+    descripcion:"pepinillo picante"
+},
+{
+  id_ingrediente:8,
+  nombre_ingrediente:"chorizo",
+  stock_ingrediente: 300,
+  precio_ingrediente: 2,
+  descripcion:"chorizo santarosano"
+}
+])
+
+db.chef.insertMany([{
+    id_chef:1,
+    nombre_chef: "chefB",
+     especialidad_chef:"carnes"
+},
+{
+    id_chef:2,
+    nombre_chef: "chefA",
+     especialidad_chef:"vegetales"
+},
+{
+    id_chef:1,
+    nombre_chef: "chefC",
+     especialidad_chef:"pollo"
+},
+{
+    id_chef:1,
+    nombre_chef: "chefD",
+     especialidad_chef:"carnes"
+}])
+```
+
+# USO DE LA APP
+
+para realizar las debidas consultas utilizaremos una extension muy util de VS Code llamada: thunderClient, en la cuál implementaremos los siguientes routers:
+
+debemos insertar el router y el meodo que necesitamos ejemplo:
+
+![1694049903392](image/README/1694049903392.png)
+
+Routers:
+
+**Encontrar todos los ingredientes con stock menor a 400 : GET
+http://127.10.10.10:5000/ingrediente/ingredienteStock400
+esta es la respuesta del router:**
+
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9879",
+    "id_ingrediente": 1,
+    "nombre_ingrediente": "pan integral",
+    "stock_ingrediente": 200,
+    "precio_ingrediente": 2,
+    "descripcion": "Delicioso pan ingtegral bajo en grasa"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a987b",
+    "id_ingrediente": 3,
+    "nombre_ingrediente": "pan",
+    "stock_ingrediente": 300,
+    "precio_ingrediente": 1,
+    "descripcion": "esquisito queso clasico"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a987c",
+    "id_ingrediente": 4,
+    "nombre_ingrediente": "tomate",
+    "stock_ingrediente": 100,
+    "precio_ingrediente": 1,
+    "descripcion": "tomate rojo"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a987d",
+    "id_ingrediente": 5,
+    "nombre_ingrediente": "lechuga",
+    "stock_ingrediente": 150,
+    "precio_ingrediente": 1,
+    "descripcion": "lechuga crespa"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a987f",
+    "id_ingrediente": 7,
+    "nombre_ingrediente": "pollo",
+    "stock_ingrediente": 0,
+    "precio_ingrediente": 4,
+    "descripcion": "rico pollo"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9880",
+    "id_ingrediente": 8,
+    "nombre_ingrediente": "pepinillo",
+    "stock_ingrediente": 300,
+    "precio_ingrediente": 4,
+    "descripcion": "pepinillo picante"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9881",
+    "id_ingrediente": 8,
+    "nombre_ingrediente": "chorizo",
+    "stock_ingrediente": 300,
+    "precio_ingrediente": 2,
+    "descripcion": "chorizo santarosano"
+  }
+]
+```
+
+**Encontrar todas las hamburguesas de la categoría "*Vegetariana*": GET
+ http://127.10.10.10:5000/hamburguesa/hamburguesaVegetariana
+esta es la respuesta del router:**
+
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9875",
+    "id_hamburguesa": 1,
+    "categoria": "vegetariana",
+    "preparadaPor": "chefA",
+    "ingrediente": [
+      "pan integral",
+      "tomate",
+      "queso cheddar",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 4
+  }
+]
+```
+
+**Encontrar todos los chefs que se especializan en "Carnes"**: GET
+**http://127.10.10.10:5000/chef/chefCarne
+esta es la respuesta del router:**
+
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9882",
+    "id_chef": 1,
+    "nombre_chef": "chefB",
+    "especialidad_chef": "carnes"
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9885",
+    "id_chef": 1,
+    "nombre_chef": "chefD",
+    "especialidad_chef": "carnes"
+  }
+]
+```
+
+**Encontrar todas las hamburguesas preparadas por "*ChefB*"_: GET
+http://127.10.10.10:5000/hamburguesa/hamburguesaXchefB
+esta es la respuesta del router:**
+
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9876",
+    "id_hamburguesa": 2,
+    "categoria": "clasica",
+    "preparadaPor": "chefB",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "carne",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 5
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9878",
+    "id_hamburguesa": 4,
+    "categoria": "especial",
+    "preparadaPor": "chefB",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "tomate",
+      "pollo",
+      "pepinillo",
+      "coriozo sanatarosano"
+    ],
+    "precio_hamburguesa": 9
+  }
+]
+```
+
+**Encontrar todas las hamburguesas que contienen "*Pan integral*" como ingrediente: GET
+http://127.10.10.10:5000/hamburguesa/hamburguesaPanIntegral
+esta es la respuesta del router:**
+
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9875",
+    "id_hamburguesa": 1,
+    "categoria": "vegetariana",
+    "preparadaPor": "chefA",
+    "ingrediente": [
+      "pan integral",
+      "tomate",
+      "queso cheddar",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 4
+  }
+]
+```
+
+**Encontrar todas las hamburguesas que contienen exactamente 7 ingredientes: GET
+http://127.10.10.10:5000/hamburguesa/hamburguesa7ingredientes
+esta es la respuesta del router:**
+
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9877",
+    "id_hamburguesa": 3,
+    "categoria": "gourmet",
+    "preparadaPor": "chefC",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "tomate",
+      "lechuga",
+      "pollo",
+      "pepinillo",
+      "coriozo sanatarosano"
+    ],
+    "precio_hamburguesa": 10
+  }
+]
+```
 
 
+**Listar las hamburguesas cuyo precio es menor o igual a $9: GET
+http://127.10.10.10:5000/hamburguesa/hamburguesaPrecioMenorIgual9
+esta es la respuesta del router:**
 
-expresiones regulares:
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9875",
+    "id_hamburguesa": 1,
+    "categoria": "vegetariana",
+    "preparadaPor": "chefA",
+    "ingrediente": [
+      "pan integral",
+      "tomate",
+      "queso cheddar",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 4
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9876",
+    "id_hamburguesa": 2,
+    "categoria": "clasica",
+    "preparadaPor": "chefB",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "carne",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 5
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9878",
+    "id_hamburguesa": 4,
+    "categoria": "especial",
+    "preparadaPor": "chefB",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "tomate",
+      "pollo",
+      "pepinillo",
+      "coriozo sanatarosano"
+    ],
+    "precio_hamburguesa": 9
+  }
+]
+```
 
-Email: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+**Encontrar todas las hamburguesas que contienen "Tomate" o "Lechuga" como ingredientes: GET
+http://127.10.10.10:5000/hamburguesa/hamburguesaTomateOLechuga
+esta es la respuesta del router:**
 
-numero entero: "^[0-9]+$"
+```
+[
+  {
+    "_id": "64f9239c2615ca8c8a4a9875",
+    "id_hamburguesa": 1,
+    "categoria": "vegetariana",
+    "preparadaPor": "chefA",
+    "ingrediente": [
+      "pan integral",
+      "tomate",
+      "queso cheddar",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 4
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9876",
+    "id_hamburguesa": 2,
+    "categoria": "clasica",
+    "preparadaPor": "chefB",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "carne",
+      "lechuga"
+    ],
+    "precio_hamburguesa": 5
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9877",
+    "id_hamburguesa": 3,
+    "categoria": "gourmet",
+    "preparadaPor": "chefC",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "tomate",
+      "lechuga",
+      "pollo",
+      "pepinillo",
+      "coriozo sanatarosano"
+    ],
+    "precio_hamburguesa": 10
+  },
+  {
+    "_id": "64f9239c2615ca8c8a4a9878",
+    "id_hamburguesa": 4,
+    "categoria": "especial",
+    "preparadaPor": "chefB",
+    "ingrediente": [
+      "pan",
+      "queso cheddar",
+      "tomate",
+      "pollo",
+      "pepinillo",
+      "coriozo sanatarosano"
+    ],
+    "precio_hamburguesa": 9
+  }
+]
+```
 
-numero decimal: ^-?[0-9]+(\.[0-9]+)?$
+**Eliminar todos los chefs que tienen una especialidad en "Cocina Vegetariana" DELETE
+http://127.10.10.10:5000/chef/chefEliminarCocinaVegetariana
+esta es la respuesta del router: En este caso no había ninguno con esa especialidad**
 
+```
+{
+  "acknowledged": true,
+  "deletedCount": 0
+}
+```
 
-bsontype:  object, int, string, date, **"double", **"boolean", **"array"******
+**Eliminar todos los ingredientes que tengan un stock de 0: DELETE
+http://127.10.10.10:5000/ingrediente/ingredientesEliminaStock0
+esta es la respuesta del router: En este caso solo había 1**
+
+```
+{
+  "acknowledged": true,
+  "deletedCount": 1
+}
+```
+
+NOTA: las demas consultas estan en el archivo : db/query_db.mongodb
